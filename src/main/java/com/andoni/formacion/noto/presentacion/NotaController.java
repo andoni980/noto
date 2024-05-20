@@ -29,7 +29,7 @@ public class NotaController {
 		return notaService.getAllNotas();
 	}
 	
-	@GetMapping("{id}")
+	@GetMapping("/{id}")
 	public Nota getNotaById(@PathVariable Long id){
 		return notaService.getNotaById(id);
 	}
@@ -44,7 +44,7 @@ public class NotaController {
 		return notaService.saveNota(nota);
 	}
 	
-	@DeleteMapping("/delete{id}")
+	@DeleteMapping("{id}/delete")
 	public void deleteNota(@PathVariable Long id) {
 		notaService.deleteNotaById(id);
 	}

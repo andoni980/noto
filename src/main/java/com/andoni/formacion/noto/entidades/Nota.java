@@ -2,6 +2,7 @@ package com.andoni.formacion.noto.entidades;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -33,13 +34,12 @@ public class Nota {
 	@Column(name = "titulo")
 	private String titulo;
 	
-	@NotNull
+	@NotNull(message = "El texto de la nota es obligatorio")
 	@Size(min = 2, max = 10000)
 	@Column(name = "texto")
 	private String texto;
-	
-	@NotNull
-	@ManyToOne
+
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "categoria_id")
 	private Categoria categoria;
 

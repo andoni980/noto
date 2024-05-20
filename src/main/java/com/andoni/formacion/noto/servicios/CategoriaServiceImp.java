@@ -1,6 +1,7 @@
 package com.andoni.formacion.noto.servicios;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -23,16 +24,32 @@ public class CategoriaServiceImp implements CategoriaService {
 
 	@Override
 	public Categoria getCategoriaById(Long id) {
+		
+		Optional<Categoria> categoriaOpt = categoriaRepository.findById(id);
+		if(categoriaOpt.isEmpty()) {
+			return null;
+		}
+		
 		return categoriaRepository.findById(id).get();
 	}
 
 	@Override
 	public Categoria saveCategoria(Categoria categoria) {
+		
+		if(categoria.getId() != null) {
+			return null;
+		}
+		
 		return categoriaRepository.save(categoria);
 	}
 
 	@Override
 	public Categoria updateCategoria(Categoria categoria) {
+		
+		if(categoria.getId() == null) {
+			return null;
+		}
+		
 		return categoriaRepository.save(categoria);
 	}
 

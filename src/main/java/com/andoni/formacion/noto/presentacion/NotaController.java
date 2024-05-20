@@ -45,7 +45,6 @@ public class NotaController {
 				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
 	
-	
 	@PostMapping("/save")
 	public ResponseEntity<Nota> saveNota(@RequestBody Nota nota) {
 		return new ResponseEntity<>(notaService.saveNota(nota), HttpStatus.CREATED);

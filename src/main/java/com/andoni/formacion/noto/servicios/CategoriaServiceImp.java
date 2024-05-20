@@ -23,14 +23,8 @@ public class CategoriaServiceImp implements CategoriaService {
 	}
 
 	@Override
-	public Categoria getCategoriaById(Long id) {
-		
-		Optional<Categoria> categoriaOpt = categoriaRepository.findById(id);
-		if(categoriaOpt.isEmpty()) {
-			return null;
-		}
-		
-		return categoriaRepository.findById(id).get();
+	public Optional<Categoria> getCategoriaById(Long id) {
+		return categoriaRepository.findById(id);
 	}
 
 	@Override
@@ -54,8 +48,13 @@ public class CategoriaServiceImp implements CategoriaService {
 	}
 
 	@Override
-	public void deleteCategoriaById(Long id) {
-		categoriaRepository.deleteById(id);
+	public Boolean deleteCategoriaById(Long id) {
+		
+		return getCategoriaById(id)
+				.map(categoria -> {
+					categoriaRepository.deleteById(id);
+					return true;
+				}).orElse(false);
 	}
 
 }

@@ -2,6 +2,8 @@ package com.andoni.formacion.noto.presentacion;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,28 +27,36 @@ public class CategoriaController {
 	}
 	
 	@GetMapping
-	public List<Categoria> getAllCategorias(){
-		return categoriaService.getAllCategorias();
+	public ResponseEntity<List<Categoria>> getAllCategorias(){
+		return new ResponseEntity<>(categoriaService.getAllCategorias(), HttpStatus.OK);
 	}
 	
 	@GetMapping("{id}")
-	public Categoria getCategoriaById(@PathVariable Long id){
-		return categoriaService.getCategoriaById(id);
+	public ResponseEntity<Categoria> getCategoriaById(@PathVariable Long id){
+		return categoriaService.getCategoriaById(id)
+				.map(categoria -> new ResponseEntity<>(categoria, HttpStatus.OK))
+				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
 	
 	@PostMapping("/save")
-	public Categoria saveCategoria(@RequestBody Categoria categoria) {
-		return categoriaService.saveCategoria(categoria);
+	public ResponseEntity<Categoria> saveCategoria(@RequestBody Categoria categoria) {
+		return new ResponseEntity<>(categoriaService.saveCategoria(categoria), HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/update")
-	public Categoria updateCategoria(@RequestBody Categoria categoria) {
+	public ResponseEntity<Categoria> updateCategoria(@RequestBody Categoria categoria) {
 		System.out.println(categoria.toString());
-		return categoriaService.updateCategoria(categoria);
+		return new ResponseEntity<>(categoriaService.updateCategoria(categoria), HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{id}/delete")
-	public void deleteCategoria(@PathVariable Long id) {
-		categoriaService.deleteCategoriaById(id);
+	public ResponseEntity<Boolean> deleteCategoria(@PathVariable Long id) {
+		
+		if(categoriaService.deleteCategoriaById(id)) {
+			return new ResponseEntity<>(true, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+		}
+		
 	}
 }

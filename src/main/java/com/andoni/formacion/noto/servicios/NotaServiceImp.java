@@ -23,14 +23,13 @@ public class NotaServiceImp implements NotaService {
 	}
 
 	@Override
-	public Nota getNotaById(Long id) {
-		
-		Optional<Nota> notaOpt = notaRepository.findById(id);
-		if(notaOpt.isEmpty()) {
-			return null;
-		}
-		
-		return notaRepository.findById(id).get();
+	public Optional<Nota> getNotaById(Long id) {
+		return notaRepository.findById(id);
+	}
+	
+	@Override
+	public Optional<List<Nota>> getNotasByCategoriaId(Long id){
+		return notaRepository.findByCategoriaId(id);
 	}
 
 	@Override
@@ -54,9 +53,13 @@ public class NotaServiceImp implements NotaService {
 	}
 
 	@Override
-	public void deleteNotaById(Long id) {
+	public Boolean deleteNotaById(Long id) {
 		
-		notaRepository.deleteById(id);
+		return getNotaById(id)
+				.map(nota -> {
+					notaRepository.deleteById(id);
+					return true;
+				}).orElse(false);
 	}
 
 }

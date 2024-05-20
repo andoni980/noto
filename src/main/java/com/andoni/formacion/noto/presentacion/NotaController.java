@@ -2,6 +2,8 @@ package com.andoni.formacion.noto.presentacion;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,27 +27,42 @@ public class NotaController {
 	}
 	
 	@GetMapping
-	public List<Nota> getAllNotas(){
-		return notaService.getAllNotas();
+	public ResponseEntity<List<Nota>> getAllNotas(){
+		return new ResponseEntity<>(notaService.getAllNotas(), HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")
-	public Nota getNotaById(@PathVariable Long id){
-		return notaService.getNotaById(id);
+	public ResponseEntity<Nota> getNotaById(@PathVariable Long id){
+		return notaService.getNotaById(id)
+				.map(nota -> new ResponseEntity<>(nota, HttpStatus.OK))
+				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
 	
+	@GetMapping("/categoria/{id}")
+	public ResponseEntity<List<Nota>> getNotasByCategoriaId(@PathVariable Long id){
+		return notaService.getNotasByCategoriaId(id)
+				.map(notas -> new ResponseEntity<>(notas, HttpStatus.OK))
+				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+	}
+	
+	
 	@PostMapping("/save")
-	public Nota saveNota(@RequestBody Nota nota) {
-		return notaService.saveNota(nota);
+	public ResponseEntity<Nota> saveNota(@RequestBody Nota nota) {
+		return new ResponseEntity<>(notaService.saveNota(nota), HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/update")
-	public Nota updateNota(@RequestBody Nota nota) {
-		return notaService.saveNota(nota);
+	public ResponseEntity<Nota> updateNota(@RequestBody Nota nota) {
+		return new ResponseEntity<>(notaService.updateNota(nota), HttpStatus.OK);
 	}
 	
-	@DeleteMapping("{id}/delete")
-	public void deleteNota(@PathVariable Long id) {
-		notaService.deleteNotaById(id);
+	@DeleteMapping("/{id}/delete")
+	public ResponseEntity<Boolean> deleteNota(@PathVariable Long id) {
+		
+		if(notaService.deleteNotaById(id)) {
+			return new ResponseEntity<>(true, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+		}
 	}
 }

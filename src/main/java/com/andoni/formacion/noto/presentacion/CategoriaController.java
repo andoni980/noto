@@ -41,7 +41,8 @@ public class CategoriaController {
 	
 	@PutMapping("/update")
 	public Categoria updateCategoria(@RequestBody Categoria categoria) {
-		return categoriaService.saveCategoria(categoria);
+		System.out.println(categoria.toString());
+		return categoriaService.updateCategoria(categoria);
 	}
 	
 	@DeleteMapping("/{id}/delete")

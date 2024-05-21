@@ -50,6 +50,7 @@ public class NotaController {
 	
 	@PostMapping("/save")
 	public ResponseEntity<Nota> saveNota(@RequestBody Nota nota) {
+		System.out.println(nota.toString());
 		if(nota.getFechaCreacion() == null) {
 			nota.setFechaCreacion(LocalDateTime.now());
 		}

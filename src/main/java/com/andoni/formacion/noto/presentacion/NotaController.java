@@ -1,9 +1,11 @@
 package com.andoni.formacion.noto.presentacion;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.andoni.formacion.noto.entidades.Nota;
 import com.andoni.formacion.noto.servicios.NotaService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/notas")
 public class NotaController {
@@ -47,6 +50,9 @@ public class NotaController {
 	
 	@PostMapping("/save")
 	public ResponseEntity<Nota> saveNota(@RequestBody Nota nota) {
+		if(nota.getFechaCreacion() == null) {
+			nota.setFechaCreacion(LocalDateTime.now());
+		}
 		return new ResponseEntity<>(notaService.saveNota(nota), HttpStatus.CREATED);
 	}
 	

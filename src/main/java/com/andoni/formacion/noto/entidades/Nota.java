@@ -46,6 +46,15 @@ public class Nota {
 	@PastOrPresent
 	@Column(name = "fecha_creacion")
 	private LocalDateTime fechaCreacion;
+	
+	@NotNull()
+	@Column(name = "is_eliminada")
+	@Builder.Default
+	private Boolean isEliminada = false;
+	
+	@PastOrPresent
+	@Column(name = "fecha_eliminacion")
+	private LocalDateTime fechaEliminacion;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "categoria_id")

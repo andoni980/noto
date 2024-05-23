@@ -1,5 +1,6 @@
 package com.andoni.formacion.noto.servicios;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +20,7 @@ public class NotaServiceImp implements NotaService {
 	
 	@Override
 	public List<Nota> getAllNotas() {
-		return notaRepository.findAll();
+		return notaRepository.findByIsEliminada(false);
 	}
 
 	@Override
@@ -55,11 +56,26 @@ public class NotaServiceImp implements NotaService {
 	@Override
 	public Boolean deleteNotaById(Long id) {
 		
-		return getNotaById(id)
-				.map(nota -> {
-					notaRepository.deleteById(id);
-					return true;
-				}).orElse(false);
+		boolean eliminada = false;
+		
+		Optional<Nota> notaOpt = getNotaById(id);
+		
+		if(notaOpt.isPresent()) {
+			
+			if(notaOpt.get().getIsEliminada() == true) {
+				notaRepository.deleteById(id);
+				eliminada = true;
+			}else {
+				Nota nota = notaOpt.get();
+				nota.setIsEliminada(true);
+				nota.setFechaEliminacion(LocalDateTime.now());
+				updateNota(nota);
+				eliminada = true;
+			}
+		}
+		
+		return eliminada;
+			
 	}
 
 }

@@ -10,4 +10,6 @@ import com.andoni.formacion.noto.entidades.Nota;
 public interface NotaRepository extends JpaRepository<Nota, Long> {
 
 	Optional<List<Nota>>findByCategoriaId(Long id);
+	
+	List<Nota> findByIsEliminada(Boolean noEliminada);
 }

@@ -7,7 +7,7 @@ import com.andoni.formacion.noto.entidades.Nota;
 
 public interface NotaService {
 
-	List<Nota> getAllNotas();
+	List<Nota> getAllNotas(Boolean eliminada);
 	Optional<Nota> getNotaById(Long id);
 	Optional<List<Nota>> getNotasByCategoriaId(Long id);
 	Nota saveNota(Nota nota);

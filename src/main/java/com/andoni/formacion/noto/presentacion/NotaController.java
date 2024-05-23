@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.andoni.formacion.noto.entidades.Nota;
@@ -30,8 +31,8 @@ public class NotaController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<Nota>> getAllNotas(){
-		return new ResponseEntity<>(notaService.getAllNotas(), HttpStatus.OK);
+	public ResponseEntity<List<Nota>> getAllNotas(@RequestParam Boolean eliminada){
+		return new ResponseEntity<>(notaService.getAllNotas(eliminada), HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")

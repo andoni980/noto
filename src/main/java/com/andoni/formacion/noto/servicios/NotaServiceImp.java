@@ -19,8 +19,8 @@ public class NotaServiceImp implements NotaService {
 	}
 	
 	@Override
-	public List<Nota> getAllNotas() {
-		return notaRepository.findByIsEliminada(false);
+	public List<Nota> getAllNotas(Boolean eliminada) {
+		return notaRepository.findByIsEliminada(eliminada);
 	}
 
 	@Override

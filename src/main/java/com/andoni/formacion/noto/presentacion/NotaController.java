@@ -60,12 +60,18 @@ public class NotaController {
 	
 	@PutMapping("/update")
 	public ResponseEntity<Nota> updateNota(@RequestBody Nota nota) {
-		return new ResponseEntity<>(notaService.updateNota(nota), HttpStatus.OK);
+		
+		if(nota.getIsEliminada() == true) {
+			return new ResponseEntity<>(notaService.restoreNota(nota), HttpStatus.OK);
+		}
+		else {
+			return new ResponseEntity<>(notaService.updateNota(nota), HttpStatus.OK);
+		}
 	}
 	
 	@DeleteMapping("/{id}/delete")
 	public ResponseEntity<Boolean> deleteNota(@PathVariable Long id) {
-		
+		System.out.println(id);
 		if(notaService.deleteNotaById(id)) {
 			return new ResponseEntity<>(true, HttpStatus.OK);
 		}else {

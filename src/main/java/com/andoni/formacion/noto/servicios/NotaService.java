@@ -12,5 +12,6 @@ public interface NotaService {
 	Optional<List<Nota>> getNotasByCategoriaId(Long id);
 	Nota saveNota(Nota nota);
 	Nota updateNota(Nota nota);
+	Nota restoreNota(Nota nota);
 	Boolean deleteNotaById(Long id);
 }

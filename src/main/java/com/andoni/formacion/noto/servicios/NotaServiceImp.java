@@ -49,6 +49,12 @@ public class NotaServiceImp implements NotaService {
 		if(nota.getId() == null) {
 			return null;
 		}
+
+		return notaRepository.save(nota);
+	}
+	
+	@Override
+	public Nota restoreNota(Nota nota) {
 		
 		if(nota.getIsEliminada() == true) {
 			nota.setIsEliminada(false);
@@ -78,6 +84,8 @@ public class NotaServiceImp implements NotaService {
 				eliminada = true;
 			}
 		}
+		
+		System.out.println(eliminada);
 		
 		return eliminada;
 			

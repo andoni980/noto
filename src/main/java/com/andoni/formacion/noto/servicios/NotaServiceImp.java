@@ -45,9 +45,14 @@ public class NotaServiceImp implements NotaService {
 
 	@Override
 	public Nota updateNota(Nota nota) {
-		
+		System.out.println(nota.toString());
 		if(nota.getId() == null) {
 			return null;
+		}
+		
+		if(nota.getIsEliminada() == true) {
+			nota.setIsEliminada(false);
+			nota.setFechaEliminacion(null);
 		}
 		
 		return notaRepository.save(nota);

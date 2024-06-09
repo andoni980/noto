@@ -31,8 +31,8 @@ public class NotaController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<Nota>> getAllNotas(@RequestParam Boolean eliminada){
-		return new ResponseEntity<>(notaService.getAllNotas(eliminada), HttpStatus.OK);
+	public ResponseEntity<List<Nota>> getAllNotas(@RequestParam Boolean eliminadas){
+		return new ResponseEntity<>(notaService.getAllNotas(eliminadas), HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")

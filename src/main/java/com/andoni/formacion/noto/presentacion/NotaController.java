@@ -49,6 +49,14 @@ public class NotaController {
 				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
 	
+	@GetMapping("/{texto}/titulo")
+	public ResponseEntity<List<Nota>> getNotasByTitulo(@PathVariable String texto){
+		return notaService.getNotasByTituloContains(texto)
+				.map(notas -> new ResponseEntity<>(notas, HttpStatus.OK))
+				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+				
+	}
+	
 	@PostMapping("/save")
 	public ResponseEntity<Nota> saveNota(@RequestBody Nota nota) {
 		System.out.println(nota.toString());

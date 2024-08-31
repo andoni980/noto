@@ -91,4 +91,9 @@ public class NotaServiceImp implements NotaService {
 			
 	}
 
+	@Override
+	public Optional<List<Nota>> getNotasByTituloContains(String texto) {
+		return notaRepository.findByTituloContains(texto);
+	}
+
 }

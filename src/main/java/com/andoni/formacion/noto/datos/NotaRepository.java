@@ -13,5 +13,5 @@ public interface NotaRepository extends JpaRepository<Nota, Long> {
 	
 	List<Nota> findByIsEliminada(Boolean eliminadas);
 	
-	Optional<List<Nota>> findByTituloContains(String texto);
+	Optional<List<Nota>> findByIsEliminadaAndTituloContains( Boolean esEliminada,String texto);
 }

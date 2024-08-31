@@ -14,5 +14,5 @@ public interface NotaService {
 	Nota updateNota(Nota nota);
 	Nota restoreNota(Nota nota);
 	Boolean deleteNotaById(Long id);
-	Optional<List<Nota>> getNotasByTituloContains(String texto);
+	Optional<List<Nota>> getNotasByTituloContains(boolean esEliminada, String texto);
 }

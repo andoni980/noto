@@ -92,8 +92,8 @@ public class NotaServiceImp implements NotaService {
 	}
 
 	@Override
-	public Optional<List<Nota>> getNotasByTituloContains(String texto) {
-		return notaRepository.findByTituloContains(texto);
+	public Optional<List<Nota>> getNotasByTituloContains(boolean esEliminada, String texto) {
+		return notaRepository.findByIsEliminadaAndTituloContains(esEliminada, texto);
 	}
 
 }

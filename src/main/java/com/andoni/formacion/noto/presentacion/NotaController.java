@@ -52,6 +52,9 @@ public class NotaController {
 	@GetMapping("/{texto}/titulo")
 	public ResponseEntity<List<Nota>> getNotasByTitulo(@PathVariable String texto){
 		boolean esEliminada = false;
+		if(texto == null || texto == "") {
+			return null;
+		}
 		return notaService.getNotasByTituloContains(esEliminada, texto)
 				.map(notas -> new ResponseEntity<>(notas, HttpStatus.OK))
 				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));

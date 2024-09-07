@@ -66,6 +66,7 @@ public class NotaController {
 		System.out.println(nota.toString());
 		if(nota.getFechaCreacion() == null) {
 			nota.setFechaCreacion(LocalDateTime.now());
+			nota.setFechaModificacion(LocalDateTime.now());
 		}
 		return new ResponseEntity<>(notaService.saveNota(nota), HttpStatus.CREATED);
 	}

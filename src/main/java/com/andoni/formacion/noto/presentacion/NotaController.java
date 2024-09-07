@@ -77,6 +77,7 @@ public class NotaController {
 			return new ResponseEntity<>(notaService.restoreNota(nota), HttpStatus.OK);
 		}
 		else {
+			nota.setFechaModificacion(LocalDateTime.now());
 			return new ResponseEntity<>(notaService.updateNota(nota), HttpStatus.OK);
 		}
 	}

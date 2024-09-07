@@ -47,6 +47,11 @@ public class Nota {
 	@Column(name = "fecha_creacion")
 	private LocalDateTime fechaCreacion;
 	
+	@NotNull(message = "La fecha de última modificación de la nota es obligatorio")
+	@PastOrPresent
+	@Column(name = "fecha_modificacion")
+	private LocalDateTime fechaModificacion;
+	
 	@NotNull()
 	@Column(name = "is_eliminada")
 	@Builder.Default

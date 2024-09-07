@@ -49,7 +49,7 @@ public class NotaController {
 				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
 	
-	@GetMapping("/{texto}/titulo")
+	@GetMapping("/titulo/{texto}")
 	public ResponseEntity<List<Nota>> getNotasByTitulo(@PathVariable String texto){
 		boolean esEliminada = false;
 		if(texto == null || texto == "") {
